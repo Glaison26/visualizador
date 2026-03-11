@@ -1,6 +1,10 @@
 <?php
+session_start();
 include("../conexao.php");
 include('../links2.php');
+if ($_SESSION['tipo']<>"Administrador"){
+   header('location: /visualizador/acesso.php');  
+}
 
 ?>
 
@@ -135,7 +139,7 @@ include('../links2.php');
                     <td>$c_linha[tipo]</td>
                     <td>$c_ativo</td>
                     <td>
-                    <a class='btn btn-secondary btn-sm' href='/gop/cadastros/usuarios/Usuarios_editar.php?id=$c_linha[id]'><span class='glyphicon glyphicon-pencil'></span> Editar</a>
+                    <a class='btn btn-secondary btn-sm' href='/visualizador/visual/usuarios_editar.php?id=$c_linha[id]'><span class='glyphicon glyphicon-pencil'></span> Editar</a>
                     
                     </td>
 

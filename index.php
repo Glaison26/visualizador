@@ -3,47 +3,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $l_erro = '';
 } else {
     session_start();
-    //include("conexao.php");
+    include("conexao.php");
     $_SESSION['local'] = "localhost";
     $_SESSION['usuario'] = "root";
     $_SESSION['senha'] = "";
     $_SESSION['banco'] = "";
 
-    //$c_login = $_POST['login'];
-    //$c_sql = "SELECT count(*) as achou FROM usuarios where usuarios.login='$c_login'";
-    //$result = $conection->query($c_sql);
+    $c_login = $_POST['login'];
+    $c_sql = "SELECT count(*) as achou FROM usuario where usuario.login='$c_login'";
+    $result = $conection->query($c_sql);
     // verifico se a query foi correto
-    //if (!$result) {
-    //    die("Erro ao Executar Sql !!" . $conection->connect_error);
-   // }
-    //$c_linha = $result->fetch_assoc();
+    if (!$result) {
+        die("Erro ao Executar Sql !!" . $conection->connect_error);
+    }
+    $c_linha = $result->fetch_assoc();
     // if ($c_login == 'Glaison') {
     //     $_SESSION["newsession"] = "gop";
     //     $_SESSION["id_usuario"] = 16;
 
     //     $_SESSION['c_usuario'] = $c_login;
     //     $_SESSION['tipo'] = 'Administrador';
-    //     header('location: /gop/menu.php');
-    // }
-    //if ($c_linha['achou'] == 0) {
-    //    $l_erro = ' Nome ou senha inválido. Tente novamente!';
-    //} else {
-    //    // procuro senha
-    //    $c_sql = "SELECT usuarios.id,usuarios.senha, usuarios.tipo FROM usuarios where usuarios.login='$c_login'";
-    //    $result = $conection->query($c_sql);
-    //    $registro = $result->fetch_assoc();
-    //    $c_senha = base64_decode($registro['senha']);
-    //    if ($c_senha != $_POST['senha']) {
-    //        $l_erro = 'Nome ou senha inválido, Verifique e tente novamente !!!';
-    //    } else {
-    //        $l_erro = ' ';
-    //        $_SESSION["newsession"] = "gop";
-    //        $_SESSION["id_usuario"] = $registro['id'];
-    //        $_SESSION['c_usuario'] = $c_login;
-    //        $_SESSION['tipo'] = $registro['tipo'];
+    //    header('location: /visualizador/menu.php');
+    //}
+    if ($c_linha['achou'] == 0) {
+        $l_erro = ' Nome ou senha inválido. Tente novamente!';
+    } else {
+        // procuro senha
+        $c_sql = "SELECT usuario.id,usuario.senha, usuario.tipo FROM usuario where usuario.login='$c_login'";
+        $result = $conection->query($c_sql);
+        $registro = $result->fetch_assoc();
+        $c_senha = base64_decode($registro['senha']);
+        if ($c_senha != $_POST['senha']) {
+            $l_erro = 'Nome ou senha inválido, Verifique e tente novamente !!!';
+        } else {
+            $l_erro = ' ';
+            $_SESSION["newsession"] = "gop";
+            $_SESSION["id_usuario"] = $registro['id'];
+            $_SESSION['c_usuario'] = $c_login;
+            $_SESSION['tipo'] = $registro['tipo'];
             header('location: /visualizador/menu.php');
-     //   }
-   // }
+        }
+    }
 }
 ?>
 
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         </form>
     </div>
-    
+
 
 
 

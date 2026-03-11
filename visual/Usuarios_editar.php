@@ -28,21 +28,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no
     $registro = $result->fetch_assoc();
 
     if (!$registro) {
-         header('location: /visualizador/visual/usuarios_lista.php');
+        header('location: /visualizador/visual/usuarios_lista.php');
         exit;
     }
+    $i_setor = $registro['id_setor'];
     $c_nome = $registro["nome"];
     $c_login = $registro['login'];
     $c_senha = base64_decode($registro['senha']);  // senha descriptografia
     $c_ativo = $registro['ativo'];
     $c_tipo = $registro['tipo'];
     $c_senha2 = base64_decode($registro['senha']);  // senha descriptografia;
-       if ($c_ativo == 'S') {
+    if ($c_ativo == 'S') {
         $c_statusativo = 'checked';
     } else {
         $c_statusativo = '';
     }
-} 
+}
 
 ?>
 
@@ -89,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no
                 </div>
                 <h5>Campos com (*) são obrigatórios. A senha do usário deve conter pelo menos 1 letra do alfabeto, 1 caracter numérico, no mínimo 8 caracteres e no máximo 30 caracteres</h5>
             </div>
-            <form method="post">
+            <form method="post" action="\visualizador\modelagem\usuarios_editar.php">
                 <input type="hidden" name="id" value="<?php echo $c_id; ?>">
                 <div class="row mb-3">
                     <div class="form-check col-sm-3">
@@ -132,44 +133,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no
                     <label class="col-sm-3 col-form-label">Tipo de usuário (*)</label>
                     <div class="col-sm-2">
                         <select class="form-select form-select-lg mb-3" id="tipo" name="tipo" value="<?php echo $c_tipo; ?>">
-                            <option <?php echo $op1 ?>>Operador</option>
-                            <option <?php echo $op2 ?>>Solicitante</option>
+
+                            <option <?php echo $op2 ?>>Visualizador</option>
                             <option <?php echo $op3 ?>>Administrador</option>
                         </select>
                     </div>
                 </div>
-
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Perfil</label>
-                    <div class="col-sm-3">
-                        <select class="form-select form-select-lg mb-3" id="perfil" name="perfil" required>
-
+                    <label class="col-sm-3 col-form-label">Setor * </label>
+                    <div class="col-sm-5">
+                        <select class="form-select form-select-lg mb-3" id="setor" name="setor">
                             <?php
-                            $c_sql_perfil = "select perfil_usuarios.id, perfil_usuarios.descricao from perfil_usuarios order by perfil_usuarios.descricao";
-                            $result_perfil = $conection->query($c_sql_perfil);
-                            //
-                            while ($registro2 = $result_perfil->fetch_assoc()) {
-                                $op = "";
-                                if ($registro2['id'] == $i_id_perfil)
+                            // select da tabela de setores
+                            $c_sql_setor = "SELECT setores.id, setores.descricao FROM setores ORDER BY setores.descricao";
+                            $result_setor = $conection->query($c_sql_setor);
+                            while ($c_linha = $result_setor->fetch_assoc()) {
+                                $op = '';
+                                if ($c_linha['id'] == $i_setor) {
                                     $op = 'selected';
-                                echo "<option $op>$registro2[descricao]</option>";
+                                } else {
+                                    $op = '';
+                                }
+                                echo "<option $op>$c_linha[descricao]</option>";
                             }
                             ?>
-
                         </select>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">CPF (*)</label>
-                    <div class="col-sm-2">
-                        <input type="text" id="cpf" maxlength="14" class="form-control" name="cpf" value="<?php echo $c_cpf; ?>" required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">e-mail (*)</label>
-                    <div class="col-sm-6">
-                        <input type="email" id="email" class="form-control" name="email" value="<?php echo $c_email; ?>" required>
                     </div>
                 </div>
 
@@ -191,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no
                 <div class="row mb-3">
                     <div class="offset-sm-0 col-sm-3">
                         <button type="submit" class="btn btn-primary"><span class='glyphicon glyphicon-floppy-saved'></span> Salvar</button>
-                        <a class='btn btn-danger' href='/gop/cadastros/usuarios/usuarios_lista.php'><span class='glyphicon glyphicon-remove'></span> Cancelar</a>
+                        <a class='btn btn-danger' href='/visualizador/visual/usuarios_lista.php'><span class='glyphicon glyphicon-remove'></span> Cancelar</a>
                     </div>
 
                 </div>

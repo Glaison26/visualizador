@@ -4,6 +4,12 @@
     include('../links2.php');
     include_once "../lib_gop.php";
     // metodo post para atualizar dados
+    // pego o setor selecionado
+    $c_sql_setor = "select * from setores where setores.descricao='$_POST[setor]'";
+    $result_setor = $conection->query($c_sql_setor);
+    // verifico se a query foi correto
+    $c_linha_setor = $result_setor->fetch_assoc();
+    $i_setor = $c_linha_setor['id'];
     $c_id = $_POST["id"];
     $c_nome = $_POST["nome"];
     $c_login = $_POST['login'];
@@ -49,7 +55,7 @@
         $c_senha = base64_encode($c_senha);
         // faço a Leitura da tabela com sql
         $c_sql = "Update Usuario" .
-            " SET nome = '$c_nome', login ='$c_login', senha ='$c_senha', ativo='$c_ativo', tipo='$c_tipo'" .
+            " SET nome = '$c_nome', login ='$c_login', senha ='$c_senha', ativo='$c_ativo', tipo='$c_tipo', id_setor='$i_setor'" .
             " where id=$c_id";
 
         $result = $conection->query($c_sql);
@@ -59,6 +65,6 @@
             die("Erro ao Executar Sql!!" . $conection->connect_error);
         }
         $msg_gravou = "Dados Gravados com Sucesso!!";
-        header('location: /gop/cadastros/usuarios/usuarios_lista.php');
+        header('location: /visualizador/visual/usuarios_lista.php');
     } while (false);
     ?>
