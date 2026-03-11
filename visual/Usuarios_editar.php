@@ -5,9 +5,9 @@ if (!isset($_SESSION['newsession'])) {
 }
 
 
-include('../../conexao.php');
-include('../../links2.php');
-include_once "../../lib_gop.php";
+include('../conexao.php');
+include('../links2.php');
+include_once "../lib_gop.php";
 
 
 // variaveis para mensagens de erro e suscessso da gravação
@@ -17,102 +17,33 @@ $msg_erro = "";
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no formulário
 
     if (!isset($_GET["id"])) {
-        header('location: /gop/cadastros/usuarios/usuarios_lista.php');
+        header('location: /visualizador/visual/usuarios_lista.php');
         exit;
     }
 
     $c_id = $_GET["id"];
     // leitura do cliente através de sql usando id passada
-    $c_sql = "select * from usuarios where id=$c_id";
+    $c_sql = "select * from usuario where id=$c_id";
     $result = $conection->query($c_sql);
     $registro = $result->fetch_assoc();
 
     if (!$registro) {
-        header('location: /gop/cadastro/usuarios/usuarios_lista.php');
+         header('location: /visualizador/visual/usuarios_lista.php');
         exit;
     }
     $c_nome = $registro["nome"];
     $c_login = $registro['login'];
-    $c_cpf = $registro['cpf'];
     $c_senha = base64_decode($registro['senha']);  // senha descriptografia
     $c_ativo = $registro['ativo'];
     $c_tipo = $registro['tipo'];
-    $c_email = $registro['email'];
     $c_senha2 = base64_decode($registro['senha']);  // senha descriptografia;
-    $i_id_perfil = $registro['id_perfil'];
-
-    if ($c_ativo == 'S') {
+       if ($c_ativo == 'S') {
         $c_statusativo = 'checked';
     } else {
         $c_statusativo = '';
     }
-} else {
-    // metodo post para atualizar dados
-    $c_id = $_POST["id"];
-    $c_nome = $_POST["nome"];
-    $c_login = $_POST['login'];
-    $c_cpf = $_POST['cpf'];
-    $c_senha = $_POST['senha'];
-    $c_senha2 = $_POST['senha2'];
-    $c_tipo = $_POST['tipo'];
-    $c_email = $_POST['email'];
+} 
 
-    if (!isset($_POST['chkativo'])) {
-        $c_ativo = 'N';
-    } else {
-        $c_ativo = 'S';
-    }
-    do {
-        if (empty($c_nome) || empty($c_login) || empty($c_senha) || empty($c_email) || empty($c_cpf)) {
-            $msg_erro = "Todos os Campos devem ser preenchidos!!";
-            break;
-        }
-        // consiste se senha igual a confirmação
-        if ($c_senha != $c_senha2) {
-            $msg_erro = "Senha digitada diferente da senha de confirmação!!";
-            break;
-        }
-        $i_tamsenha = strlen($c_senha);
-        if (($i_tamsenha < 8) || ($i_tamsenha > 30)) {
-            $msg_erro = "Campo Senha deve ter no mínimo 8 caracteres e no máximo 30 caracteres";
-
-            break;
-        }
-
-        // valido o cpf informado
-        if (!validaCPF($c_cpf)) {
-            $msg_erro = "CPF Inválido! Favor verificar.";
-            carregadados();
-            break;
-        }
-
-        // consiste se senha tem pelo menos 1 caracter numérico
-        if (filter_var($c_senha, FILTER_SANITIZE_NUMBER_INT) == '') {
-            $msg_erro = "Campo Senha deve ter pelo menos (1) caracter numérico";
-            break;
-        }
-       // if (ctype_digit($c_senha)) {
-       //     $msg_erro = "Campo Senha deve conter pelo menos uma letra do Alfabeto";
-       //     break;
-       // }
-        // grava dados no banco
-        // criptografo senha
-        $c_senha = base64_encode($c_senha);
-        // faço a Leitura da tabela com sql
-        $c_sql = "Update Usuarios" .
-            " SET nome = '$c_nome', login ='$c_login', senha ='$c_senha', cpf ='$c_cpf', ativo='$c_ativo', tipo='$c_tipo', email='$c_email'" .
-            " where id=$c_id";
-
-        $result = $conection->query($c_sql);
-
-        // verifico se a query foi correto
-        if (!$result) {
-            die("Erro ao Executar Sql!!" . $conection->connect_error);
-        }
-        $msg_gravou = "Dados Gravados com Sucesso!!";
-        header('location: /gop/cadastros/usuarios/usuarios_lista.php');
-    } while (false);
-}
 ?>
 
 <!DOCTYPE html>
@@ -123,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/gop/css/basico.css">
-    <title>Editar dados de Executor</title>
+    <title>Editar dados de Usuário</title>
 
 </head>
 <div class="container-fluid">
@@ -132,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no
         <div style="padding-top:5px;">
             <div class="panel panel-primary class">
                 <div class="panel-heading text-center">
-                    <h4>GOP - Gestão Operacional</h4>
+                    <h4>Visualizador para Prescrições</h4>
                     <h5>Editar dados do Usuário<h5>
                 </div>
             </div>

@@ -1,8 +1,6 @@
 <?php
 // controle de acesso ao formulário
 session_start();
-
-
 include('../conexao.php');
 include('../links2.php');
 include_once "../lib_gop.php";
