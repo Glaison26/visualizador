@@ -92,6 +92,37 @@ $c_data = date('Y-m-d');
         <!-- end subnav barra de navegação secundária com atalhos de solicitações e ordens -->
 
     </div>
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Bem-vindo ao Sistema</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Visualização de Prescrições -->
+                <div class="border-l-4 border-blue-800 pl-4">
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">
+                        <i class="fas fa-eye mr-2"></i>Visualização de Prescrições
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Acesse e visualize todas as prescrições médicas registradas no sistema. 
+                        Você pode consultar histórico completo de prescrições, filtrar por 
+                        data ou setor.
+                    </p>
+                </div>
+                
+                <!-- Inclusão de Prescrições -->
+                <div class="border-l-4 border-blue-800 pl-4">
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">
+                        <i class="fas fa-plus-circle mr-2"></i>Inclusão de Prescrições
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Registre novas prescrições médicas no sistema de forma segura e organizada. 
+                        Preencha todos os dados necessários. 
+                        As prescrições são armazenadas com controle de acesso e rastreabilidade completa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
 
 
     </main>
