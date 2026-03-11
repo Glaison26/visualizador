@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $l_erro = ' ';
             $_SESSION["newsession"] = "gop";
             $_SESSION["id_usuario"] = $registro['id'];
-            $_SESSION['c_usuario'] = $c_login;
+            $_SESSION['c_usuario'] = $_POST['login'];
             $_SESSION['tipo'] = $registro['tipo'];
             header('location: /visualizador/menu.php');
         }

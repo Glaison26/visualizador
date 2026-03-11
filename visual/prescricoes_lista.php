@@ -3,14 +3,9 @@ session_start();
 if (!isset($_SESSION['newsession'])) {
     die('Acesso não autorizado!!!');
 }
-include("../../conexao.php");
-include("../../links.php");
-
-
+include("../conexao.php");
+include("../links.php");
 date_default_timezone_set('America/Sao_Paulo');
-
-
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -44,7 +39,7 @@ date_default_timezone_set('America/Sao_Paulo');
                     'aTargets': [5]
                 }, {
                     'aTargets': [0],
-                    "visible": true
+                    "visible": false
                 }],
                 "oLanguage": {
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -91,7 +86,7 @@ date_default_timezone_set('America/Sao_Paulo');
     <div class="container-fluid">
 
         <form method="post" enctype="multipart/form-data">
-            <a class="btn btn-secondary btn-sm" href="/gop/cadastros/pop/pops_lista.php"><span class="glyphicon glyphicon-off"></span> Voltar</a>
+            <a class="btn btn-secondary btn-sm" href="/visualizador/visual/prescricoes.php"> Voltar</a>
             <hr>
 
 
@@ -112,7 +107,9 @@ date_default_timezone_set('America/Sao_Paulo');
                     <?php
 
                     // faço a Leitura da tabela com sql
-                    $c_sql = "SELECT * from prescricoes order by data desc";
+                    $c_sql = "SELECT *, setores.descricao AS setor from prescricoes
+                    JOIN setores ON prescricoes.id_setor = setores.id
+                    order by data desc";
                     $result = $conection->query($c_sql);
                     // verifico se a query foi correto
                     if (!$result) {
@@ -126,15 +123,15 @@ date_default_timezone_set('America/Sao_Paulo');
                         echo "
                     <tr class='info'>
                     <td>$c_linha[id]</td>
-                    <td>$c_linha[descricao]</td>
-                    <td>$c_linha[path]</td>
                     <td>$c_data</td>
-                    <td>$c_linha[responsavel]</td>
-                    
-                   
+                    <td>$c_linha[hora]</td>
+                    <td>$c_linha[caminho]</td>
+                    <td>$c_linha[descritivo]</td>
+                    <td>$c_linha[setor]</td>
+                             
                     <td>
-                   
-                    <a class='btn btn-primary btn-sm' href='/gop/cadastros/pop/pops_baixar.php?id=$c_linha[id]'><span class='glyphicon glyphicon-download-alt'></span> download</a>
+                
+                    <a class='btn btn-primary btn-sm' href='/visualizacao/modelagem/prescricoes_baixar.php?id=$c_linha[id]'><span class='glyphicon glyphicon-download-alt'></span> download</a>
                     <a class='btn btn-danger btn-sm' href='javascript:func()'onclick='confirmacao($c_linha[id])'><span class='glyphicon glyphicon-trash'></span> Excluir</a>
                     </td>
 

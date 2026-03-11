@@ -2,16 +2,11 @@
 // controle de acesso ao formulário
 
 //include('conexao.php');
-
+session_start();
 date_default_timezone_set('America/Sao_Paulo');
 $agora = date('d/m/Y H:i');
 $c_data = date('Y-m-d');
-$_SESSION['c_usuario'] = "Glaison Queiroz"
-
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="pt-br">

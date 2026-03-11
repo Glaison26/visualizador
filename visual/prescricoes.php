@@ -11,7 +11,7 @@ date_default_timezone_set('America/Sao_Paulo');
 // rotina para montagem do sql com as opções selecionadas
 if ((isset($_POST["btnpesquisa"])) && ($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
-    header('location: /visualizacao/visual/prescricoes_lista.php');
+    header('location: /visualizador/visual/prescricoes_lista.php');
 }
 
 ?>
