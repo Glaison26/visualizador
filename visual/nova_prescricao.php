@@ -7,25 +7,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hora = $_POST['hora'];
     $descritivo = $_POST['descritivo'];
     $setor = $_POST['setor'];
-    
+
     if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] == 0) {
         $arquivo = $_FILES['arquivo'];
         $nome_arquivo = basename($arquivo['name']);
         $pasta_destino = '../uploads/';
-        
+
         if (!is_dir($pasta_destino)) {
             mkdir($pasta_destino, 0755, true);
         }
-        
+
         $caminho_arquivo = $pasta_destino . $nome_arquivo;
-        
+
         if (move_uploaded_file($arquivo['tmp_name'], $caminho_arquivo)) {
             $sql = "INSERT INTO prescricoes (data, hora, descritivo, id_setor, caminho) 
                     VALUES (?, ?, ?, ?, ?)";
-            
+
             $stmt = $conection->prepare($sql);
             $stmt->bind_param("sssss", $data, $hora, $descritivo, $setor, $caminho_arquivo);
-            
+
             if ($stmt->execute()) {
                 echo "<script>alert('Prescrição gravada com sucesso!'); window.location.href = 'nova_prescricao.php';</script>";
             } else {
@@ -154,13 +154,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     ?>
                 </select>
             </div>
-
+            
             <div class="form-group">
                 <label for="arquivo">Selecionar PDF:</label>
                 <input type="file" id="arquivo" name="arquivo" accept=".pdf" required>
             </div>
 
+
             <button type="submit">Enviar</button>
+        <button type="button" style="background-color: #f44336; margin-top: 10px;" onclick="window.history.back();">Voltar</button>
         </form>
     </div>
 </body>

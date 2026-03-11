@@ -79,6 +79,9 @@ $c_data = date('Y-m-d');
             <a href="/visualizador/visual/prescricoes.php" class="text-white hover:text-blue-200 transition flex items-center">
                 <i class="fas fa-file-alt mr-2"></i>Visualizar e incluir Prescrições
             </a>
+             <a href="/visualizador/visual/Setores_lista.php" class="text-white hover:text-blue-200 transition flex items-center">
+                <i class="fas fa-file-alt mr-2"></i>Cadastro de Setores
+            </a>
            
             <a href="/visualizador/visual/usuarios_lista.php" class="text-white hover:text-blue-200 transition flex items-center">
                 <i class="fa solid fa-user mr-2"></i>Controle de Usuários

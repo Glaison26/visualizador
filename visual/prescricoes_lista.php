@@ -4,7 +4,7 @@ if (!isset($_SESSION['newsession'])) {
     die('Acesso não autorizado!!!');
 }
 include("../conexao.php");
-include("../links.php");
+include("../links2.php");
 date_default_timezone_set('America/Sao_Paulo');
 ?>
 <!doctype html>
@@ -16,7 +16,7 @@ date_default_timezone_set('America/Sao_Paulo');
         function confirmacao(id) {
             var resposta = confirm("Deseja remover esse registro?");
             if (resposta == true) {
-                window.location.href = "/gop/cadastros/pop/pops_anexos_excluir.php?id=" + id;
+                window.location.href = "/visualizador/modelagem/prescricoes_excluir.php?id=" + id;
             }
         }
     </script>
@@ -85,8 +85,8 @@ date_default_timezone_set('America/Sao_Paulo');
 
     <div class="container-fluid">
 
-        <form method="post" enctype="multipart/form-data">
-            <a class="btn btn-secondary btn-sm" href="/visualizador/visual/prescricoes.php"> Voltar</a>
+        <form method="post">
+            <a class="btn btn" href="/visualizador/visual/prescricoes.php"><span class="glyphicon glyphicon-off"> Voltar</a>
             <hr>
 
 
