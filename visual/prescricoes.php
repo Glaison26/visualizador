@@ -10,6 +10,8 @@ date_default_timezone_set('America/Sao_Paulo');
 
 // rotina para montagem do sql com as opções selecionadas
 if ((isset($_POST["btnpesquisa"])) && ($_SERVER['REQUEST_METHOD'] == 'POST')) {
+    $_SESSION['data1'] = $_POST['data1'];
+    $_SESSION['data2'] = $_POST['data2'];
 
     header('location: /visualizador/visual/prescricoes_lista.php');
 }

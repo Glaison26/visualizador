@@ -8,6 +8,8 @@ include("../conexao.php");
 $id_prescricao =  $_GET["id"];
 // sql para buscar descrição do POP
 $c_sql_anexo = "Select id, caminho from prescricoes where id='$id_prescricao'";
+//echo $c_sql_anexo;
+//die();
 $result_anexo = $conection->query($c_sql_anexo);
 $registro_anexo = $result_anexo->fetch_assoc();
 $arquivo = $registro_anexo['caminho'];

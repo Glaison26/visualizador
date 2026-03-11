@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $l_erro = ' Nome ou senha inválido. Tente novamente!';
     } else {
         // procuro senha
-        $c_sql = "SELECT usuario.id,usuario.senha, usuario.tipo FROM usuario where usuario.login='$c_login'";
+        $c_sql = "SELECT usuario.id,usuario.senha, usuario.tipo, usuario.id_setor FROM usuario where usuario.login='$c_login'";
         $result = $conection->query($c_sql);
         $registro = $result->fetch_assoc();
         $c_senha = base64_decode($registro['senha']);
@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $_SESSION["id_usuario"] = $registro['id'];
             $_SESSION['c_usuario'] = $_POST['login'];
             $_SESSION['tipo'] = $registro['tipo'];
+            $_SESSION['setor'] = $registro['id_setor'];
             header('location: /visualizador/menu.php');
         }
     }
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 <html lang="en">
 
 <head>
-    <title>gop - Gestão de Serviços</title>
+    <title>Visualizador de Prescrições</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

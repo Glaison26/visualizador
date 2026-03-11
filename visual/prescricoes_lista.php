@@ -105,11 +105,22 @@ date_default_timezone_set('America/Sao_Paulo');
                 </thead>
                 <tbody>
                     <?php
-
+                    $d_data1 = $_SESSION['data1']; 
+                    $d_data2 = $_SESSION['data2']; 
+                    $c_where = " where (data BETWEEN '$d_data1' and '$d_data2')";
+                    $c_setor = "";
+                    if ($_SESSION['tipo'] <> 'Administrador') {
+                        $c_setor = 'id_setor = ' . $_SESSION['setor'];
+                    }
                     // faço a Leitura da tabela com sql
-                    $c_sql = "SELECT *, setores.descricao AS setor from prescricoes
-                    JOIN setores ON prescricoes.id_setor = setores.id
-                    order by data desc";
+                    $c_sql = "SELECT prescricoes.id,  prescricoes.`data`, prescricoes.hora, prescricoes.descritivo, prescricoes.caminho,
+                            setores.descricao AS setor from prescricoes
+                            JOIN setores ON prescricoes.id_setor = setores.id " . $c_where;
+                    if (!empty($c_setor)) {
+                        $c_sql = $c_sql . ' and ' . $c_setor;
+                    }
+                    $c_sql = $c_sql . " order by data desc";
+                    //echo $c_sql;
                     $result = $conection->query($c_sql);
                     // verifico se a query foi correto
                     if (!$result) {
@@ -131,7 +142,7 @@ date_default_timezone_set('America/Sao_Paulo');
                              
                     <td>
                 
-                    <a class='btn btn-primary btn-sm' href='/visualizacao/modelagem/prescricoes_baixar.php?id=$c_linha[id]'><span class='glyphicon glyphicon-download-alt'></span> download</a>
+                    <a class='btn btn-primary btn-sm' href='/visualizador/modelagem/prescricoes_baixar.php?id=$c_linha[id]'><span class='glyphicon glyphicon-download-alt'></span> download</a>
                     <a class='btn btn-danger btn-sm' href='javascript:func()'onclick='confirmacao($c_linha[id])'><span class='glyphicon glyphicon-trash'></span> Excluir</a>
                     </td>
 
