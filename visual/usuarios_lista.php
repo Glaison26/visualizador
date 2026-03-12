@@ -2,9 +2,10 @@
 session_start();
 include("../conexao.php");
 include('../links2.php');
-if ($_SESSION['tipo']<>"Administrador"){
+if (($_SESSION['tipo']<>"Administrador")||($_SESSION['cadastro']<>"Sim")){
    header('location: /visualizador/acesso.php');  
 }
+
 
 ?>
 

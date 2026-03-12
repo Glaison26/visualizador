@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $l_erro = ' Nome ou senha inválido. Tente novamente!';
     } else {
         // procuro senha
-        $c_sql = "SELECT usuario.id,usuario.senha, usuario.tipo, usuario.id_setor FROM usuario where usuario.login='$c_login'";
+        $c_sql = "SELECT usuario.id,usuario.senha, usuario.tipo, usuario.id_setor, cadastro FROM usuario where usuario.login='$c_login'";
         $result = $conection->query($c_sql);
         $registro = $result->fetch_assoc();
         $c_senha = base64_decode($registro['senha']);
@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $_SESSION['c_usuario'] = $_POST['login'];
             $_SESSION['tipo'] = $registro['tipo'];
             $_SESSION['setor'] = $registro['id_setor'];
+            $_SESSION['cadastro'] = $registro['cadastro'];
             header('location: /visualizador/menu.php');
         }
     }
