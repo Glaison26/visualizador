@@ -77,6 +77,19 @@ $msg_erro = "";
                             <input class="form-check-input" type="checkbox" value="S" name="chkativo" id="chkativo" checked>
                         </div>
                     </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="permissao_cadastrar" id="permissao_cadastrar" checked>
+                            <label class="form-check-label" for="permissao_cadastrar">
+                                Cadastra Usuários
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row mb-3">
+
                 </div>
                 <hr>
                 <div class="row mb-3">
@@ -93,7 +106,7 @@ $msg_erro = "";
                     </div>
 
                 </div>
-                
+
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Setor </label>
                     <div class="col-sm-3">
@@ -123,6 +136,7 @@ $msg_erro = "";
                         </select>
                     </div>
                 </div>
+
 
 
                 <div class="row mb-3">

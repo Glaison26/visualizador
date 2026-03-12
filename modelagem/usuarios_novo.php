@@ -26,15 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $i_setor = $c_linha_setor['id'];
     $c_nome = $_POST['nome'];
     $c_login = $_POST['login'];
-   
+
     $c_senha = $_POST['senha'];
     $c_senha2 = $_POST['senha2'];
     $c_tipo = $_POST['tipo'];
-    
+
     if (!isset($_POST['chkativo'])) {
         $c_ativo = 'N';
     } else {
         $c_ativo = 'S';
+    }
+
+    if (!isset($_POST['permissao_cadastrar'])) {
+         $c_cadastro = 'Não';
+    } else {
+        $c_cadastro = 'Sim';
     }
 
     do {
@@ -57,10 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $msg_erro = "Campo Senha deve ter pelo menos (1) caracter numérico";
             break;
         }
-       // if (ctype_digit($c_senha)) {
-       //     $msg_erro = "Campo Senha deve conter pelo menos uma letra do Alfabeto";
-       //     break;
-       // }
+        // if (ctype_digit($c_senha)) {
+        //     $msg_erro = "Campo Senha deve conter pelo menos uma letra do Alfabeto";
+        //     break;
+        // }
         // consistencia se já existe login cadastrado
         $c_sql = "select usuario.login from usuario where login='$c_login'";
         $result = $conection->query($c_sql);
@@ -69,20 +75,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $msg_erro = "Já existe este login cadastrado!!";
             break;
         }
-       
+
         $i_tamsenha = strlen($c_senha);
         if (($i_tamsenha < 8) || ($i_tamsenha > 30)) {
             $msg_erro = "Campo Senha deve ter no mínimo 8 caracteres e no máximo 30 caracteres";
             break;
         }
-        
+
         // criptografo a senha digitada
         $c_senha = base64_encode($c_senha);
         // grava dados no banco
 
         // faço a Leitura da tabela com sql
-        $c_sql = "Insert into usuario (nome,login,senha, ativo, tipo, id_setor)" .
-            "Value ('$c_nome', '$c_login', '$c_senha', '$c_ativo', '$c_tipo', '$i_setor')";
+        $c_sql = "Insert into usuario (nome,login,senha, ativo, tipo, id_setor, cadastro)" .
+            "Value ('$c_nome', '$c_login', '$c_senha', '$c_ativo', '$c_tipo', '$i_setor', '$c_cadastro')";
 
         $result = $conection->query($c_sql);
         // verifico se a query foi correto

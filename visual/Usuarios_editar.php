@@ -43,6 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no
     } else {
         $c_statusativo = '';
     }
+    // 
+    $c_cadastro = $registro['cadastro'];
+    //echo $c_cadastro;
+   
 }
 
 ?>
@@ -96,8 +100,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {  // metodo get para carregar dados no
                     <div class="form-check col-sm-3">
                         <label class="form-check-label col-form-label">Usuário Ativo</label>
                         <div class="col-sm-3">
-                            <input class="form-check-input" type="checkbox" value="S" name="chkativo" id="chkativo" checked>
+                            <input class="form-check-input" type="checkbox" value="S" name="chkativo" 
+                            id="chkativo" <?php echo ($c_ativo == 'S') ? 'checked' : ''; ?>>
                         </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="permissao_cadastrar" id="permissao_cadastrar"  <?php echo ($c_cadastro == 'Sim') ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="permissao_cadastrar" >
+                                Cadastra Usuários
+                            </label>
+                        </div>
+
                     </div>
                 </div>
                 <hr>

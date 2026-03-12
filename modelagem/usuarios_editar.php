@@ -16,6 +16,11 @@
     $c_senha = $_POST['senha'];
     $c_senha2 = $_POST['senha2'];
     $c_tipo = $_POST['tipo'];
+     if (!isset($_POST['permissao_cadastrar'])) {
+        $c_cadastro = 'Não';
+    } else {
+        $c_cadastro = 'Sim';
+    }
     
 
     if (!isset($_POST['chkativo'])) {
@@ -55,7 +60,7 @@
         $c_senha = base64_encode($c_senha);
         // faço a Leitura da tabela com sql
         $c_sql = "Update Usuario" .
-            " SET nome = '$c_nome', login ='$c_login', senha ='$c_senha', ativo='$c_ativo', tipo='$c_tipo', id_setor='$i_setor'" .
+            " SET nome = '$c_nome', login ='$c_login', senha ='$c_senha', ativo='$c_ativo', tipo='$c_tipo', id_setor='$i_setor', cadastro='$c_cadastro' " .
             " where id=$c_id";
 
         $result = $conection->query($c_sql);
