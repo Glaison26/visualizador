@@ -77,7 +77,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
     <div class="panel panel-primary class">
         <div class="panel-heading text-center">
-            <h4>GOP - Gestão Operacional</h4>
+            <h4>Visualizador para Prescrições</h4>
             <h5>Lista Prescrições<h5>
         </div>
     </div>
