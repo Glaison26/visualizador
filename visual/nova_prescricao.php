@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('../conexao.php');
+date_default_timezone_set('America/Sao_Paulo');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = $_POST['data'];
@@ -39,6 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -124,12 +127,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="data">Data:</label>
-                <input type="date" id="data" name="data" required>
+                <input type="date" id="data" name="data"  value='<?php echo date("Y-m-d"); ?>' required>
             </div>
 
             <div class="form-group">
                 <label for="hora">Hora:</label>
-                <input type="time" id="hora" name="hora" required>
+                <input type="time" id="hora" name="hora" value='<?php echo date('H:i:s'); ?>' required>
             </div>
 
             <div class="form-group">
